@@ -3,7 +3,8 @@
     // List of page URLs representing each slide in the presentation
     const slides = [
         'pages/01-intro.html',
-        'pages/02-importance-of-decisions.html'
+        'pages/02-importance-of-decisions.html',
+        'pages/03-cap-demonstration.html'
     ];
 
     let currentSlideIndex = 0;
@@ -62,9 +63,31 @@
                     document.head.appendChild(script);
                 });
             });
+
+            // Extract style dependency manifest links (<link rel="preload" as="style">)
+            const stylePreloads = parsedDoc.querySelectorAll('link[rel="preload"][as="style"]');
+            const styleLoads = Array.from(stylePreloads).map(link => {
+                const href = link.getAttribute('href');
+                return new Promise((resolve) => {
+                    // Check if stylesheet is already present in document.head
+                    if (document.querySelector(`link[href="${href}"][rel="stylesheet"]`)) {
+                        resolve();
+                        return;
+                    }
+                    const styleLink = document.createElement('link');
+                    styleLink.rel = 'stylesheet';
+                    styleLink.href = href;
+                    styleLink.onload = () => resolve();
+                    styleLink.onerror = () => {
+                        console.error(`Failed to load slide style dependency: ${href}`);
+                        resolve(); // Resolve to prevent hanging
+                    };
+                    document.head.appendChild(styleLink);
+                });
+            });
             
-            // Await all scripts to be fetched and executed before rendering the page content
-            await Promise.all(scriptLoads);
+            // Await all scripts and styles to be fetched and executed before rendering the page content
+            await Promise.all([...scriptLoads, ...styleLoads]);
             
             // To prevent flicker, overwrite the DOM in a single synchronous operation
             // We use parsedDoc.body.innerHTML so we only inject the main slide elements

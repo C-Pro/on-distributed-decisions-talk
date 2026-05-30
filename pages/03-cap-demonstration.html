@@ -1,0 +1,62 @@
+<link rel="preload" href="pages/03-cap-demonstration.js" as="script">
+<link rel="preload" href="pages/03-cap-demonstration.css" as="style">
+
+<div class="slide center" data-init="initCapSlide">
+    <div class="cap-container">
+        <h1>CAP Visualised</h1>
+
+        <!-- Main interactive demonstration board -->
+        <div class="cap-board" id="cap-board">
+            <div class="board-stage">
+                
+                <!-- Node A -->
+                <div class="sketch-node" id="cap-node-a">
+                    <div class="sketch-node-title">Node A</div>
+                    <div class="sketch-node-val" id="val-a">V = 1</div>
+                    <div class="node-pulse" id="pulse-a"></div>
+                </div>
+
+                <!-- Interactive Network Space -->
+                <div class="network-link-container" id="network-link" title="Click to partition / heal network">
+                    <!-- Double arrow svg -->
+                    <svg class="network-arrows" viewBox="0 0 160 80" fill="none">
+                        <!-- Top Arrow: Left-to-Right -->
+                        <path d="M 20 25 L 140 25 M 125 15 L 140 25 L 125 35" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                        <!-- Bottom Arrow: Right-to-Left -->
+                        <path d="M 140 55 L 20 55 M 35 45 L 20 55 L 35 65" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+
+                    <!-- Jagged red crack svg -->
+                    <svg class="partition-crack-svg" id="crack-svg" viewBox="0 0 40 240" fill="none">
+                        <path d="M 20 0 L 15 45 L 28 90 L 10 135 L 25 180 L 12 215 L 20 240" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+
+                    <div class="partition-label" id="partition-lbl">Net Partition</div>
+                    
+                    <div class="network-hover-area" id="network-hover">
+                        <span id="hover-action">Click to Partition</span>
+                    </div>
+                </div>
+
+                <!-- Node B -->
+                <div class="sketch-node" id="cap-node-b">
+                    <div class="sketch-node-title">Node B</div>
+                    <div class="sketch-node-val" id="val-b">V = 1</div>
+                    <div class="node-pulse" id="pulse-b"></div>
+                </div>
+
+            </div>
+
+            <!-- Badges -->
+            <div class="badges-container">
+                <div class="cap-badge ok" id="badge-c">Consistency</div>
+                <div class="cap-badge ok" id="badge-a">Availability</div>
+                <div class="cap-badge ok" id="badge-p">Partition Tolerance</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-hint">
+      <span>PgUp</span> Next | <span>PgDn</span> Prev
+    </div>
+</div>

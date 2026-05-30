@@ -11,12 +11,13 @@ This workspace contains an interactive, web-based presentation framework. When m
 
 ---
 
-## 2. Slide Loading & Script Dependency Rules
+## 2. Slide Loading & Dependency Rules
 
-We use the **HTML Dependency Manifest Pattern** to dynamically fetch slide contents and execute required JavaScript safely.
+We use the **HTML Dependency Manifest Pattern** to dynamically fetch slide contents and execute required JavaScript and CSS safely.
 
-To add a new slide or configure slide dependencies, follow the step-by-step instructions in the dedicated agent skill:
-[.agents/skills/add-page/SKILL.md](.agents/skills/add-page/SKILL.md)
+* **No Global Changes:** Page-specific styles, logic, or content changes must **NOT** be made in global files outside of the `pages/` directory (e.g., do not modify `presentation.css` or `presentation.js` for slide-specific styling or logic). The only exception is registering the new slide file path in the `slides` array in `presentation.js`.
+* **Manifest Reference:** To add a new slide or configure slide dependencies, follow the step-by-step instructions in the dedicated agent skill:
+  [.agents/skills/add-page/SKILL.md](.agents/skills/add-page/SKILL.md)
 
 ---
 

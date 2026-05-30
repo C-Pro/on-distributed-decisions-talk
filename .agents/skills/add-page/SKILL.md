@@ -17,8 +17,9 @@ If the user did not provide you with the slide page description right away ask t
 Create a new HTML file under the [pages/](../../../pages/) directory (e.g. `pages/04-newslide.html`). The slide content should be wrapped in a `.slide` container:
 
 ```html
-<!-- Declare script dependency if needed (Step 2) -->
+<!-- Declare script and style dependencies if needed (Step 2 & Step 3) -->
 <link rel="preload" href="pages/04-newslide.js" as="script">
+<link rel="preload" href="pages/04-newslide.css" as="style">
 
 <div class="slide" data-init="initNewSlide">
     <div class="content-wrapper">
@@ -36,7 +37,14 @@ If your slide contains interactive features (e.g., forms, buttons, canvas, anima
    > [!IMPORTANT]
    > The `href` MUST reference the project root (e.g., `"pages/04-newslide.js"`), not relative to the folder (do not use `"./04-newslide.js"`).
 
-### Step 3: Register Slide in Configuration
+### Step 3: Create Page-Specific CSS (Optional)
+If your slide requires custom styling:
+1. Create a stylesheet file in the same directory: `pages/04-newslide.css`.
+2. Add the `<link rel="preload" href="pages/04-newslide.css" as="style">` tag at the top of your slide HTML fragment.
+   > [!IMPORTANT]
+   > The `href` MUST reference the project root (e.g., `"pages/04-newslide.css"`), not relative to the folder (do not use `"./04-newslide.css"`).
+
+### Step 4: Register Slide in Configuration
 Open [presentation.js](../../../presentation.js) and append your new slide file path to the `slides` configuration array:
 
 ```javascript
