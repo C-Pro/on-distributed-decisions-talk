@@ -141,6 +141,59 @@
         // Bind global key listener
         window.addEventListener('keydown', handleKeyDown);
 
+        // Bind global touch listeners for swipe gestures (both horizontal and vertical)
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchStartTime = 0;
+
+        window.addEventListener('touchstart', (event) => {
+            touchStartX = event.changedTouches[0].clientX;
+            touchStartY = event.changedTouches[0].clientY;
+            touchStartTime = Date.now();
+            console.log('touchstart:', { x: touchStartX, y: touchStartY });
+        }, { passive: true });
+
+        window.addEventListener('touchend', (event) => {
+            const touchEndX = event.changedTouches[0].clientX;
+            const touchEndY = event.changedTouches[0].clientY;
+            const touchEndTime = Date.now();
+
+            const diffX = touchEndX - touchStartX;
+            const diffY = touchEndY - touchStartY;
+            const elapsedTime = touchEndTime - touchStartTime;
+
+            console.log('touchend:', {
+                endX: touchEndX,
+                endY: touchEndY,
+                diffX: diffX,
+                diffY: diffY,
+                elapsedTime: elapsedTime
+            });
+
+            // Thresholds for swipe:
+            // - Elapsed time must be quick (< 800ms to allow emulators to drag-and-swipe successfully)
+            // - Horizontal distance is >= 50px (and horizontal > vertical to ignore vertical scrolling)
+            if (elapsedTime <= 800) {
+                const absDiffX = Math.abs(diffX);
+                const absDiffY = Math.abs(diffY);
+
+                if (absDiffX >= 50 && absDiffX > absDiffY) {
+                    // Horizontal swipe
+                    if (diffX < 0) {
+                        // Swipe Left -> Next Slide
+                        if (currentSlideIndex < slides.length - 1) {
+                            loadSlide(currentSlideIndex + 1);
+                        }
+                    } else {
+                        // Swipe Right -> Prev Slide
+                        if (currentSlideIndex > 0) {
+                            loadSlide(currentSlideIndex - 1);
+                        }
+                    }
+                }
+            }
+        }, { passive: true });
+
         // Respond to browser back/forward buttons (popstate / hashchange)
         window.addEventListener('hashchange', () => {
             const hashIndex = getSlideIndexFromHash();
