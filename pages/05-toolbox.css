@@ -1,0 +1,76 @@
+.toolbox-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+    width: 100%;
+    max-width: 1000px;
+    box-sizing: border-box;
+}
+
+.toolbox-h1 {
+    font-size: clamp(2rem, 5vw, 3.8rem) !important;
+    margin-bottom: 1.5rem !important;
+}
+
+/* Word Cloud Area */
+.cloud-stage {
+    width: 100%;
+    max-width: 850px;
+    height: 400px;
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* Base style for words */
+.cloud-word {
+    position: absolute;
+    white-space: nowrap;
+    opacity: 0;
+    transform: scale(0.3) rotate(-5deg);
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+                transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                color 0.3s ease,
+                text-shadow 0.3s ease;
+    user-select: none;
+    pointer-events: none; /* Prevent hover interaction before they appear */
+    box-sizing: border-box;
+}
+
+/* Weight-specific classes */
+.cloud-word.w-large {
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 800;
+    color: var(--accent);
+}
+
+.cloud-word.w-medium {
+    font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.cloud-word.w-small {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+/* Appear animation class */
+.cloud-word.visible {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    pointer-events: auto; /* Enable hover interaction after they appear */
+}
+
+/* Hover micro-animation */
+.cloud-word:hover {
+    transform: scale(1.15) rotate(2deg) !important;
+    color: var(--color-h2);
+    text-shadow: 0 0 15px var(--accent-glow);
+    cursor: pointer;
+}
