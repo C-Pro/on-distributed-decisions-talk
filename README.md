@@ -46,7 +46,8 @@ npx http-server -p 8000
 - `index.html` - Static shell containing the main slide container and global styling/scripts.
 - `presentation.js` - Engine managing navigation, hash routing, and dynamic slide fetching.
 - `presentation.css` - Theme styling (with automatic dark/light mode preference detection and a manual toggle button).
-- `pages/` - Directory containing slide HTML files and their page-specific script modules.
+- `pages/` - Directory containing slide HTML files and page-specific script modules.
+  - `pages/index.js` - Presentation configuration file (manages slides list and presentation title).
 
 ---
 

@@ -1,11 +1,21 @@
 // Presentation Framework Configuration & Engine
-(function() {
-    // List of page URLs representing each slide in the presentation
-    const slides = [
-        'pages/01-intro.html',
-        'pages/02-importance-of-decisions.html',
-        'pages/03-cap-demonstration.html'
-    ];
+(async function() {
+    // Dynamically load presentation settings from pages/index.js
+    let slides = [];
+    let presentationTitle = '';
+
+    try {
+        const config = await import('./pages/index.js');
+        slides = config.slides || [];
+        presentationTitle = config.presentationTitle || '';
+    } catch (error) {
+        console.error('Failed to load presentation configuration from pages/index.js:', error);
+    }
+
+    // Dynamically update page title
+    if (presentationTitle) {
+        document.title = presentationTitle;
+    }
 
     let currentSlideIndex = 0;
     const container = document.getElementById('presentation-container');
@@ -30,7 +40,7 @@
     // Fetch and load slide content into the DOM, handling dependencies
     async function loadSlide(index) {
         if (index < 0 || index >= slides.length) return;
-        
+
         const url = slides[index];
         try {
             const response = await fetch(url);
@@ -38,11 +48,11 @@
                 throw new Error(`Failed to fetch slide: ${url} (Status: ${response.status})`);
             }
             const htmlContent = await response.text();
-            
+
             // Parse the HTML content to extract dependencies
             const parser = new DOMParser();
             const parsedDoc = parser.parseFromString(htmlContent, 'text/html');
-            
+
             // Extract script dependency manifest links (<link rel="preload" as="script">)
             const preloads = parsedDoc.querySelectorAll('link[rel="preload"][as="script"]');
             const scriptLoads = Array.from(preloads).map(link => {
@@ -85,14 +95,14 @@
                     document.head.appendChild(styleLink);
                 });
             });
-            
+
             // Await all scripts and styles to be fetched and executed before rendering the page content
             await Promise.all([...scriptLoads, ...styleLoads]);
-            
+
             // To prevent flicker, overwrite the DOM in a single synchronous operation
             // We use parsedDoc.body.innerHTML so we only inject the main slide elements
             container.innerHTML = parsedDoc.body.innerHTML;
-            
+
             currentSlideIndex = index;
             updateHash(currentSlideIndex);
 

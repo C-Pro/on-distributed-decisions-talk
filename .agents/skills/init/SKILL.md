@@ -15,13 +15,13 @@ Ask the user directly for:
 2. A brief **Description** or subtitle.
 
 ### Step 2: Update the Core Metadata & Title slide
-1. Open [index.html](../../../index.html) and update the `<title>` tag with the user's presentation title. Do not modify any other part of the file.
+1. Open [pages/index.js](../../../pages/index.js) and update the `presentationTitle` value with the user's presentation title.
 2. Open [pages/01-intro.html](../../../pages/01-intro.html). Update the main `<h1>` tag with the presentation title and the `<p>` tag with the description.
 
 ### Step 3: Clean Up Template Slides
-1. Edit [presentation.js](../../../presentation.js) to reset the `slides` configuration array. Keep only the first slide:
+1. Edit [pages/index.js](../../../pages/index.js) to reset the `slides` configuration array. Keep only the first slide:
    ```javascript
-   const slides = [
+   export const slides = [
        'pages/01-intro.html'
    ];
    ```

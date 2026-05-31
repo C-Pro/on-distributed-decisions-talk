@@ -45,13 +45,13 @@ If your slide requires custom styling:
    > The `href` MUST reference the project root (e.g., `"pages/04-newslide.css"`), not relative to the folder (do not use `"./04-newslide.css"`).
 
 ### Step 4: Register Slide in Configuration
-Open [presentation.js](../../../presentation.js) and append your new slide file path to the `slides` configuration array:
+Open [pages/index.js](../../../pages/index.js) and append your new slide file path to the `slides` configuration array:
 
 ```javascript
-    const slides = [
-        'pages/01-intro.html',
-        'pages/02-interactive.html',
-        'pages/03-conclusion.html',
-        'pages/04-newslide.html' // <-- Add here
-    ];
+export const slides = [
+    'pages/01-intro.html',
+    'pages/02-interactive.html',
+    'pages/03-conclusion.html',
+    'pages/04-newslide.html' // <-- Add here
+];
 ```
