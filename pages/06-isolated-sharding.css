@@ -1,0 +1,132 @@
+.sharding-slide-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+    width: 100%;
+    max-width: 950px;
+    box-sizing: border-box;
+}
+
+.sharding-h1 {
+    font-size: clamp(1.8rem, 4.5vw, 3rem) !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.sharding-subtitle {
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    color: var(--text-secondary);
+    max-width: 800px;
+    margin-bottom: 0.8rem;
+    line-height: 1.4;
+}
+
+.sharding-subtitle strong {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.sharding-card {
+    width: 100%;
+    max-width: 800px;
+    padding: 1rem !important;
+    margin: 0.5rem 0 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* SVG Node & Line Styling */
+#isolated-svg {
+    overflow: visible;
+}
+
+.connection-line {
+    stroke: var(--border-color);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 6 6;
+    fill: none;
+    transition: stroke 0.3s ease, stroke-width 0.3s ease;
+}
+
+.connection-line.active {
+    stroke: var(--accent);
+    stroke-width: 4;
+    stroke-dasharray: none;
+}
+
+.connection-line.failed {
+    stroke: #ef4444; /* red-500 */
+    stroke-width: 4;
+}
+
+/* Nodes */
+.node-item {
+    cursor: pointer;
+    user-select: none;
+}
+
+.node-circle {
+    fill: url(#userGrad);
+    stroke: rgba(255, 255, 255, 0.2);
+    stroke-width: 2;
+    transition: r 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s ease, fill 0.3s ease;
+}
+
+.node-rect {
+    fill: url(#shardGrad);
+    stroke: rgba(255, 255, 255, 0.2);
+    stroke-width: 2;
+    transition: fill 0.3s, stroke 0.3s, filter 0.3s;
+}
+
+.node-label {
+    fill: #ffffff;
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 600;
+    text-anchor: middle;
+    pointer-events: none;
+}
+
+/* Hovers */
+.user-node:hover .node-circle {
+    r: 34px;
+    filter: url(#glow-accent);
+}
+
+.shard-node:hover .node-rect {
+    filter: url(#glow-accent);
+}
+
+/* Node states */
+.shard-node.failed .node-rect {
+    fill: url(#failGrad);
+    stroke: #ef4444;
+    filter: url(#glow-danger);
+}
+
+.user-node.error .node-circle {
+    fill: url(#failGrad);
+    stroke: #ef4444;
+    filter: url(#glow-danger);
+}
+
+/* Animations */
+.query-particle {
+    r: 6px;
+    fill: var(--accent);
+    filter: drop-shadow(0 0 6px var(--accent));
+}
+
+.query-particle.error-particle {
+    fill: #ef4444;
+    filter: drop-shadow(0 0 6px #ef4444);
+}
+
+[data-theme="light"] .connection-line {
+    stroke: rgba(15, 23, 42, 0.15);
+}

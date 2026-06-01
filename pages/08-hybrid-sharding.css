@@ -1,0 +1,178 @@
+.sharding-slide-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+    width: 100%;
+    max-width: 950px;
+    box-sizing: border-box;
+}
+
+.sharding-h1 {
+    font-size: clamp(1.8rem, 4.5vw, 3rem) !important;
+    margin-bottom: 0.5rem !important;
+}
+
+.sharding-subtitle {
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    color: var(--text-secondary);
+    max-width: 800px;
+    margin-bottom: 0.8rem;
+    line-height: 1.4;
+}
+
+.sharding-subtitle strong {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.sharding-card {
+    width: 100%;
+    max-width: 800px;
+    padding: 1rem !important;
+    margin: 0.5rem 0 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* SVG Styling */
+#hybrid-svg {
+    overflow: visible;
+}
+
+.connection-line {
+    stroke: var(--text-secondary);
+    stroke-linecap: round;
+    fill: none;
+    transition: stroke 0.3s ease, stroke-width 0.3s ease, opacity 0.3s ease;
+}
+
+.line-wallet {
+    stroke-width: 2;
+    stroke-dasharray: 4 4;
+    opacity: 0.4;
+}
+
+.line-order {
+    stroke-width: 1.5;
+    opacity: 0.15;
+}
+
+/* Active and Failed states for paths */
+.connection-line.active {
+    stroke: var(--accent);
+    stroke-width: 3.5;
+    opacity: 0.9;
+    stroke-dasharray: none;
+}
+
+.connection-line.active.failed {
+    stroke: #ef4444; /* red-500 */
+    stroke-width: 3.5;
+    opacity: 0.9;
+}
+
+/* Nodes */
+.node-item {
+    cursor: pointer;
+    user-select: none;
+}
+
+.node-circle {
+    fill: url(#userGradHybrid);
+    stroke: rgba(255, 255, 255, 0.2);
+    stroke-width: 1.5;
+    transition: r 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s ease;
+}
+
+.node-wallet-rect {
+    fill: url(#walletGrad);
+    stroke: rgba(255, 255, 255, 0.2);
+    stroke-width: 1.5;
+    transition: fill 0.3s, stroke 0.3s, filter 0.3s;
+}
+
+.node-book-rect {
+    fill: url(#orderGrad);
+    stroke: rgba(255, 255, 255, 0.2);
+    stroke-width: 1.5;
+    transition: fill 0.3s, stroke 0.3s, filter 0.3s;
+}
+
+.node-label-small {
+    fill: #ffffff;
+    font-family: var(--font-heading);
+    font-size: 11px;
+    font-weight: 600;
+    text-anchor: middle;
+    pointer-events: none;
+}
+
+.node-label-xs {
+    fill: #ffffff;
+    font-family: var(--font-heading);
+    font-size: 10px;
+    font-weight: 600;
+    text-anchor: middle;
+    pointer-events: none;
+}
+
+/* Hovers */
+.user-node:hover .node-circle {
+    r: 23px;
+    filter: url(#glow-accent-hybrid);
+}
+
+.wallet-node:hover .node-wallet-rect {
+    filter: url(#glow-accent-hybrid);
+}
+
+.book-node:hover .node-book-rect {
+    filter: url(#glow-accent-hybrid);
+}
+
+/* Shard Failure States */
+.wallet-node.failed .node-wallet-rect {
+    fill: url(#failGradHybrid);
+    stroke: #ef4444;
+    filter: url(#glow-danger-hybrid);
+}
+
+.book-node.failed .node-book-rect {
+    fill: url(#failGradHybrid);
+    stroke: #ef4444;
+    filter: url(#glow-danger-hybrid);
+}
+
+/* Node Error Indicators */
+.user-node.error .node-circle {
+    fill: url(#failGradHybrid);
+    stroke: #ef4444;
+    filter: url(#glow-danger-hybrid);
+}
+
+.wallet-node.error .node-wallet-rect {
+    fill: url(#failGradHybrid);
+    stroke: #ef4444;
+    filter: url(#glow-danger-hybrid);
+}
+
+/* Particles */
+.query-particle {
+    r: 5px;
+    fill: var(--accent);
+    filter: drop-shadow(0 0 5px var(--accent));
+}
+
+.query-particle.error-particle {
+    fill: #ef4444;
+    filter: drop-shadow(0 0 5px #ef4444);
+}
+
+[data-theme="light"] .connection-line {
+    stroke: var(--text-secondary);
+    opacity: 0.25;
+}

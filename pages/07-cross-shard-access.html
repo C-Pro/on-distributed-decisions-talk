@@ -1,0 +1,97 @@
+<link rel="preload" href="pages/07-cross-shard-access.js" as="script">
+<link rel="preload" href="pages/07-cross-shard-access.css" as="style">
+
+<div class="slide center" data-init="initCrossShardAccess">
+    <div class="sharding-slide-container">
+        <h1 class="sharding-h1">Cross-Shard Access</h1>
+        <p class="sharding-subtitle">
+            In systems like <strong>social networks</strong>, users access data from multiple shards to assemble a single view (e.g., a news feed). 
+            A single shard failure can affect any user.
+        </p>
+        
+        <div class="demo-card sharding-card">
+            <!-- Interactive SVG diagram with 3 users and cross-connections -->
+            <svg id="cross-svg" viewBox="0 0 800 320" width="100%" height="100%">
+                <defs>
+                    <!-- Glowing Filters -->
+                    <filter id="glow-accent-cross" x="-20%" y="-20%" width="140%" height="140%">
+                        <feGaussianBlur stdDeviation="8" result="blur" />
+                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                    <filter id="glow-danger-cross" x="-20%" y="-20%" width="140%" height="140%">
+                        <feGaussianBlur stdDeviation="8" result="blur" />
+                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                    <!-- Node Gradients -->
+                    <linearGradient id="userGradCross" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#818cf8" />
+                        <stop offset="100%" stop-color="#4f46e5" />
+                    </linearGradient>
+                    <linearGradient id="shardGradCross" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#10b981" />
+                        <stop offset="100%" stop-color="#059669" />
+                    </linearGradient>
+                    <linearGradient id="failGradCross" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#f87171" />
+                        <stop offset="100%" stop-color="#dc2626" />
+                    </linearGradient>
+                </defs>
+
+                <!-- Connection Lines -->
+                <g class="connections-group">
+                    <!-- User 1 Connections -->
+                    <path id="path-1-1" class="connection-line" d="M 200 80 L 200 240" data-user="1" data-shard="1" />
+                    <path id="path-1-2" class="connection-line" d="M 200 80 L 400 240" data-user="1" data-shard="2" />
+                    
+                    <!-- User 2 Connections -->
+                    <path id="path-2-1" class="connection-line" d="M 400 80 L 200 240" data-user="2" data-shard="1" />
+                    <path id="path-2-2" class="connection-line" d="M 400 80 L 400 240" data-user="2" data-shard="2" />
+                    <path id="path-2-3" class="connection-line" d="M 400 80 L 600 240" data-user="2" data-shard="3" />
+                    
+                    <!-- User 3 Connections -->
+                    <path id="path-3-2" class="connection-line" d="M 600 80 L 400 240" data-user="3" data-shard="2" />
+                    <path id="path-3-3" class="connection-line" d="M 600 80 L 600 240" data-user="3" data-shard="3" />
+                </g>
+
+                <!-- Animated Particles -->
+                <g id="particles-group-cross"></g>
+
+                <!-- User Nodes -->
+                <g class="nodes-group">
+                    <g id="user-1" class="node-item user-node" data-index="1">
+                        <circle cx="200" cy="80" r="30" class="node-circle" />
+                        <text x="200" y="85" class="node-label">User 1</text>
+                    </g>
+                    <g id="user-2" class="node-item user-node" data-index="2">
+                        <circle cx="400" cy="80" r="30" class="node-circle" />
+                        <text x="400" y="85" class="node-label">User 2</text>
+                    </g>
+                    <g id="user-3" class="node-item user-node" data-index="3">
+                        <circle cx="600" cy="80" r="30" class="node-circle" />
+                        <text x="600" y="85" class="node-label">User 3 🎩</text>
+                    </g>
+                </g>
+
+                <!-- Shard Nodes -->
+                <g class="nodes-group">
+                    <g id="shard-1" class="node-item shard-node" data-index="1">
+                        <rect x="155" y="240" width="90" height="46" rx="8" class="node-rect" />
+                        <text x="200" y="268" class="node-label">Shard 1</text>
+                    </g>
+                    <g id="shard-2" class="node-item shard-node" data-index="2">
+                        <rect x="355" y="240" width="90" height="46" rx="8" class="node-rect" />
+                        <text x="400" y="268" class="node-label">Shard 2</text>
+                    </g>
+                    <g id="shard-3" class="node-item shard-node" data-index="3">
+                        <rect x="555" y="240" width="90" height="46" rx="8" class="node-rect" />
+                        <text x="600" y="268" class="node-label">Shard 3</text>
+                    </g>
+                </g>
+            </svg>
+        </div>
+    </div>
+
+    <div class="nav-hint">
+        <span>PgUp</span> Prev | <span>PgDn</span> Next
+    </div>
+</div>
