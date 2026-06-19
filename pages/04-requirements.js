@@ -23,10 +23,10 @@
 
         // Set up transition schedule
         // Slide loaded -> Title centered (Default)
-        // 10 seconds -> First item appears
-        // +5 seconds -> Next item appears
-        const delayFirst = 3000;
-        const delayInterval = 5000;
+        // 5 seconds -> First item appears
+        // +3 seconds -> Next item appears
+        const delayFirst = 5000;
+        const delayInterval = 3000;
 
         reqItems.forEach((item, index) => {
             if (!item) return;
