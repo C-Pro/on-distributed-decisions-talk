@@ -8,5 +8,7 @@ export const slides = [
     'pages/05-toolbox.html',
     'pages/06-isolated-sharding.html',
     'pages/07-cross-shard-access.html',
-    'pages/08-hybrid-sharding.html'
+    'pages/08-hybrid-sharding.html',
+    'pages/09-thank-you.html'
 ];
+

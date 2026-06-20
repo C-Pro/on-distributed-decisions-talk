@@ -225,17 +225,11 @@ input[type="text"]:focus {
     right: 2rem;
     font-size: 0.85rem;
     color: var(--text-secondary);
-    pointer-events: auto;
+    pointer-events: none;
     letter-spacing: 0.05em;
     font-family: var(--font-heading);
     text-transform: uppercase;
-    animation: fadeOutNavHint 5s forwards;
-    transition: opacity 0.2s ease;
-}
-
-.nav-hint:hover {
-    animation: none;
-    opacity: 1;
+    opacity: 0;
 }
 
 .nav-hint span {
@@ -266,35 +260,88 @@ input[type="text"]:focus {
     box-shadow: var(--shadow-card);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    animation: fadeOutTheme 5s forwards;
-    transition: background-color 0.2s ease, transform 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+    opacity: 0;
+    pointer-events: none;
+    transition: background-color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
 }
 
-#theme-toggle:hover {
-    animation: none;
-    opacity: 1;
-    background-color: rgba(255, 255, 255, 0.08);
-    transform: scale(1.05);
-}
-
-[data-theme="light"] #theme-toggle:hover {
-    background-color: rgba(0, 0, 0, 0.04);
+#notes-toggle {
+    position: fixed;
+    top: 2rem;
+    right: 5.5rem;
+    z-index: 100;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border-radius: 50%;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--shadow-card);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    opacity: 0;
+    pointer-events: none;
+    transition: background-color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
 }
 
 /* Animations for Auto-Fade Controls */
 @keyframes fadeOutTheme {
-    0% { opacity: 1; }
+    0% { opacity: 1; pointer-events: auto; }
     60% { opacity: 1; }
-    100% { opacity: 0; }
+    100% { opacity: 0; pointer-events: none; }
 }
 
 @keyframes fadeOutNavHint {
-    0% { opacity: 0.6; }
+    0% { opacity: 0.6; pointer-events: auto; }
     60% { opacity: 0.6; }
-    100% { opacity: 0; }
+    100% { opacity: 0; pointer-events: none; }
 }
 
-#theme-toggle svg {
+/* Run fade-out animations when controls-visible is active */
+.controls-visible #theme-toggle,
+.controls-visible #notes-toggle {
+    animation: fadeOutTheme 5s forwards;
+}
+
+.controls-visible .nav-hint {
+    animation: fadeOutNavHint 5s forwards;
+}
+
+/* Force visible on hover or when notes modal is open */
+.modal-open #theme-toggle,
+.modal-open #notes-toggle,
+#theme-toggle:hover,
+#notes-toggle:hover {
+    animation: none !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+.modal-open .nav-hint,
+.nav-hint:hover {
+    animation: none !important;
+    opacity: 0.6 !important;
+    pointer-events: auto !important;
+}
+
+#theme-toggle:hover,
+#notes-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    transform: scale(1.05);
+}
+
+[data-theme="light"] #theme-toggle:hover,
+[data-theme="light"] #notes-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+#theme-toggle svg,
+#notes-toggle svg {
     width: 20px;
     height: 20px;
     stroke-width: 2;
@@ -316,6 +363,180 @@ input[type="text"]:focus {
 
 [data-theme="light"] #theme-toggle .moon-icon {
     display: none;
+}
+
+/* Slide Notes Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(4, 6, 10, 0.7); /* Darker backdrop overlay for focus and contrast */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-container {
+    background: #0f172a; /* Solid Slate 900 for dark mode, highly readable */
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    width: 66vw; /* Around 2/3 of presentation width */
+    max-width: 1000px;
+    max-height: 80vh;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-card);
+    position: relative;
+    overflow-y: auto;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+    color: var(--text-primary);
+}
+
+[data-theme="light"] .modal-container {
+    background: #ffffff; /* Solid white for light mode */
+}
+
+.modal-overlay.open .modal-container {
+    transform: scale(1);
+}
+
+.modal-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.modal-close:hover {
+    color: var(--text-primary);
+    background-color: var(--border-color);
+    box-shadow: none;
+}
+
+.modal-close svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Modal Markdown Content Typography */
+.notes-body {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.notes-body h1,
+.notes-body h2,
+.notes-body h3,
+.notes-body h4 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-family: var(--font-heading);
+    color: var(--text-primary);
+}
+
+.notes-body h1 {
+    font-size: 2rem;
+    background: var(--gradient-h1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.notes-body h2 {
+    font-size: 1.6rem;
+    color: var(--color-h2);
+}
+
+.notes-body h3 {
+    font-size: 1.3rem;
+}
+
+.notes-body p {
+    margin-bottom: 1.2rem;
+    font-size: 1.1rem;
+    max-width: 100%;
+}
+
+.notes-body ul,
+.notes-body ol {
+    margin-bottom: 1.25rem;
+    padding-left: 1.5rem;
+}
+
+.notes-body li {
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+}
+
+.notes-body li strong {
+    color: var(--text-primary);
+}
+
+.notes-body code {
+    background-color: var(--kbd-bg);
+    border: 1px solid var(--kbd-border);
+    padding: 0.15rem 0.35rem;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.9em;
+    color: var(--accent);
+}
+
+.notes-body pre {
+    background-color: var(--kbd-bg);
+    border: 1px solid var(--kbd-border);
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin-bottom: 1.25rem;
+}
+
+.notes-body pre code {
+    background: none;
+    border: none;
+    padding: 0;
+    border-radius: 0;
+    font-size: 0.85em;
+    color: var(--text-primary);
+}
+
+.notes-body blockquote {
+    border-left: 4px solid var(--accent);
+    padding-left: 1rem;
+    margin-bottom: 1.25rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.notes-body hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 1.5rem 0;
 }
 
 /* Responsive Grid Helper */
@@ -343,6 +564,13 @@ input[type="text"]:focus {
         width: 36px;
         height: 36px;
     }
+
+    #notes-toggle {
+        top: 1rem;
+        right: 3.75rem;
+        width: 36px;
+        height: 36px;
+    }
     
     .nav-hint {
         bottom: 1rem;
@@ -365,5 +593,20 @@ input[type="text"]:focus {
     .interactive-grid {
         grid-template-columns: 1fr;
         gap: 1.2rem;
+    }
+
+    .modal-container {
+        padding: 1.5rem;
+        width: 95%;
+    }
+}
+
+/* Print optimizations */
+@media print {
+    h1 {
+        background: none !important;
+        -webkit-background-clip: initial !important;
+        -webkit-text-fill-color: initial !important;
+        color: var(--text-primary) !important;
     }
 }

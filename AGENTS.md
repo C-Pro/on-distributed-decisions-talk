@@ -27,3 +27,12 @@ We use the **HTML Dependency Manifest Pattern** to dynamically fetch slide conte
 
 To start the local HTTP server and open the presentation in the browser, follow the dedicated guidelines in the workspace skill:
 [.agents/skills/run/SKILL.md](.agents/skills/run/SKILL.md)
+
+---
+
+## 4. Adding Slide Notes
+
+Slides can optionally display presenter notes in a modal dialog.
+* **Naming Convention:** Slide notes must be placed in a Markdown file (`.md`) with the exact same base name and path as the slide HTML file (e.g., `pages/04-newslide.html` -> `pages/04-newslide.md`).
+* **Format:** Use standard Markdown formatting. Keep headers, lists, links, inline code, code blocks, blockquotes, and bold/italic markup simple as they are parsed client-side.
+* **Automatic Detection:** The framework automatically detects the presence of the `.md` file and displays a document icon button in the page controls next to the theme switcher. If no `.md` file is found, the button is hidden.

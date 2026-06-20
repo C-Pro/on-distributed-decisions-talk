@@ -44,7 +44,13 @@ If your slide requires custom styling:
    > [!IMPORTANT]
    > The `href` MUST reference the project root (e.g., `"pages/04-newslide.css"`), not relative to the folder (do not use `"./04-newslide.css"`).
 
-### Step 4: Register Slide in Configuration
+### Step 4: Create Slide Notes (Optional)
+If you want to add presenter notes to this slide:
+1. Create a Markdown file with the same name as your slide: `pages/04-newslide.md`.
+2. Add your notes content using standard Markdown syntax. The parser supports basic headers, lists, code blocks, bold, italics, blockquotes, and links.
+3. The presentation engine will automatically show a notes toggle button next to the theme switcher if this file exists.
+
+### Step 5: Register Slide in Configuration
 Open [pages/index.js](../../../pages/index.js) and append your new slide file path to the `slides` configuration array:
 
 ```javascript

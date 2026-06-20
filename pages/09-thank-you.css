@@ -1,0 +1,114 @@
+.thank-you-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: 100%;
+    max-width: 900px;
+    box-sizing: border-box;
+    padding: 2rem;
+}
+
+.thank-you-h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem) !important;
+    margin-bottom: 3rem !important;
+    background: var(--gradient-h1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}
+
+.thank-you-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    gap: 4rem;
+}
+
+@media (max-width: 768px) {
+    .thank-you-content {
+        flex-direction: column;
+        gap: 2rem;
+    }
+}
+
+.contact-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
+.contact-card h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    color: var(--text-primary);
+    font-family: var(--font-heading);
+    margin-bottom: 0.5rem;
+}
+
+.contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-body);
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.contact-item:hover {
+    color: var(--accent);
+    transform: translateX(4px);
+}
+
+.contact-icon {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2px;
+}
+
+.qr-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    background: var(--bg-card);
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-card);
+}
+
+.qr-wrapper {
+    background: #ffffff;
+    padding: 12px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 174px;
+    height: 174px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.qr-image {
+    width: 150px;
+    height: 150px;
+    display: block;
+}
+
+.qr-caption {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+}
