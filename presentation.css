@@ -549,7 +549,11 @@ input[type="text"]:focus {
 
 /* Hide mobile navigation hint by default */
 .nav-hint .mobile-hint-container {
-    display: none;
+    display: none !important;
+}
+
+.nav-hint .desktop-hint {
+    display: inline-block !important;
 }
 
 /* Mobile Media Queries */
@@ -579,11 +583,11 @@ input[type="text"]:focus {
     }
     
     .nav-hint .desktop-hint {
-        display: none;
+        display: none !important;
     }
     
     .nav-hint .mobile-hint-container {
-        display: flex;
+        display: flex !important;
         flex-direction: column;
         align-items: center;
         justify-content: center;
